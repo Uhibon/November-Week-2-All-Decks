@@ -8,9 +8,7 @@
 <link rel="icon" type="image/png" href="booha-ghost.png">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet" />
 <style>
-:root{
-  --radius:28px;
-}
+:root{--radius:28px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{
   height:100%;
@@ -49,6 +47,9 @@ button.btn{
   padding:1rem 1.3rem;border-radius:16px;border:none;background:#f3f3f3;
   box-shadow:0 6px 15px rgba(0,0,0,.1);font-weight:800;cursor:pointer;font-size:1.1rem;
 }
+.modes{display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.modes button{padding:.6rem 1rem;border:none;border-radius:10px;cursor:pointer;font-weight:700;background:#eee;}
+.modes button.active{background:#111;color:#fff;}
 footer{
   position:fixed;bottom:18px;left:0;width:100%;
   text-align:center;color:#444;font-family:'Cinzel',serif;
@@ -63,6 +64,12 @@ footer{
   <h2>November Week 2</h2>
   <h3>11月第2週</h3>
 </header>
+
+<div class="modes">
+  <button id="modeVocab" class="active">Vocabulary</button>
+  <button id="modeSent">Sentences</button>
+  <button id="modeQues">Questions</button>
+</div>
 
 <div class="card-outer">
   <div class="card" id="card">
@@ -84,50 +91,50 @@ footer{
 <footer>Bryan's English School</footer>
 
 <script>
-const COLORS = ["#ffd166","#a6f7b2","#7dd3fc","#cdb4db","#fbc4ab","#b9fbc0","#fde68a","#f8c8dc","#a5f3fc","#fcd5ce"];
+const COLORS=["#ffd166","#a6f7b2","#7dd3fc","#cdb4db","#fbc4ab","#b9fbc0","#fde68a","#f8c8dc","#a5f3fc","#fcd5ce"];
 
-const CARDS = [
-  // ===== Vocabulary =====
-  {en:"sofa", jp:"ソファ", kana:"そふぁ"},
-  {en:"bed", jp:"ベッド", kana:"べっど"},
-  {en:"table", jp:"テーブル", kana:"てーぶる"},
-  {en:"chair", jp:"椅子", kana:"いす"},
-  {en:"desk", jp:"机", kana:"つくえ"},
-  {en:"shelf", jp:"本棚", kana:"ほんだな"},
-  {en:"wardrobe", jp:"タンス", kana:"たんす"},
-  {en:"fridge", jp:"冷蔵庫", kana:"れいぞうこ"},
-  {en:"microwave", jp:"電子レンジ", kana:"でんしれんじ"},
-  {en:"oven", jp:"オーブン", kana:"おーぶん"},
-  {en:"washing machine", jp:"洗濯機", kana:"せんたくき"},
-  {en:"TV", jp:"テレビ", kana:"てれび"},
+const CARDS=[
+  {en:"sofa",jp:"ソファ",kana:"そふぁ"},
+  {en:"bed",jp:"ベッド",kana:"べっど"},
+  {en:"table",jp:"テーブル",kana:"てーぶる"},
+  {en:"chair",jp:"椅子",kana:"いす"},
+  {en:"desk",jp:"机",kana:"つくえ"},
+  {en:"shelf",jp:"本棚",kana:"ほんだな"},
+  {en:"wardrobe",jp:"タンス",kana:"たんす"},
+  {en:"fridge",jp:"冷蔵庫",kana:"れいぞうこ"},
+  {en:"microwave",jp:"電子レンジ",kana:"でんしれんじ"},
+  {en:"oven",jp:"オーブン",kana:"おーぶん"},
+  {en:"washing machine",jp:"洗濯機",kana:"せんたくき"},
+  {en:"TV",jp:"テレビ",kana:"てれび"},
 ];
 
-const SENTENCES = [
-  {en:"The cat is on the sofa.", jp:"そのねこはソファの上にいます。", kana:"そのねこはそふぁのうえにいます。"},
-  {en:"The pillow is on the bed.", jp:"そのまくらはベッドの上にあります。", kana:"そのまくらはべっどのうえにあります。"},
-  {en:"The book is under the table.", jp:"その本はテーブルの下にあります。", kana:"そのほんはてーぶるのしたにあります。"},
-  {en:"The bag is under the chair.", jp:"そのかばんはいすの下にあります。", kana:"そのかばんはいすのしたにあります。"},
-  {en:"The lamp is on the desk.", jp:"そのランプはつくえの上にあります。", kana:"そのらんぷはつくえのうえにあります。"},
-  {en:"The milk is in the fridge.", jp:"その牛乳は冷蔵庫の中にあります。", kana:"そのぎゅうにゅうはれいぞうこのなかにあります。"},
-  {en:"The cup is in the microwave.", jp:"そのコップは電子レンジの中にあります。", kana:"そのこっぷはでんしれんじのなかにあります。"},
-  {en:"The pizza is in the oven.", jp:"そのピザはオーブンの中にあります。", kana:"そのぴざはおーぶんのなかにあります。"},
-  {en:"The laundry is in the washing machine.", jp:"その洗濯物は洗濯機の中にあります。", kana:"そのせんたくものはせんたくきのなかにあります。"},
-  {en:"The TV is in front of the sofa.", jp:"そのテレビはソファの前にあります。", kana:"そのてれびはそふぁのまえにあります。"},
+const SENTENCES=[
+  {en:"The cat is on the sofa.",jp:"そのねこはソファの上にいます。",kana:"そのねこはそふぁのうえにいます。"},
+  {en:"The pillow is on the bed.",jp:"そのまくらはベッドの上にあります。",kana:"そのまくらはべっどのうえにあります。"},
+  {en:"The book is under the table.",jp:"その本はテーブルの下にあります。",kana:"そのほんはてーぶるのしたにあります。"},
+  {en:"The bag is under the chair.",jp:"そのかばんはいすの下にあります。",kana:"そのかばんはいすのしたにあります。"},
+  {en:"The lamp is on the desk.",jp:"そのランプはつくえの上にあります。",kana:"そのらんぷはつくえのうえにあります。"},
+  {en:"The milk is in the fridge.",jp:"その牛乳は冷蔵庫の中にあります。",kana:"そのぎゅうにゅうはれいぞうこのなかにあります。"},
+  {en:"The cup is in the microwave.",jp:"そのコップは電子レンジの中にあります。",kana:"そのこっぷはでんしれんじのなかにあります。"},
+  {en:"The pizza is in the oven.",jp:"そのピザはオーブンの中にあります。",kana:"そのぴざはおーぶんのなかにあります。"},
+  {en:"The laundry is in the washing machine.",jp:"その洗濯物は洗濯機の中にあります。",kana:"そのせんたくものはせんたくきのなかにあります。"},
+  {en:"The TV is in front of the sofa.",jp:"そのテレビはソファの前にあります。",kana:"そのてれびはそふぁのまえにあります。"},
 ];
 
-const QUESTIONS = [
-  {en:"Where is the cat?", jp:"そのねこはどこにいますか？", kana:"そのねこはどこにいますか？"},
-  {en:"Where is the pillow?", jp:"そのまくらはどこにありますか？", kana:"そのまくらはどこにありますか？"},
-  {en:"Where is the book?", jp:"その本はどこにありますか？", kana:"そのほんはどこにありますか？"},
-  {en:"Where is the bag?", jp:"そのかばんはどこにありますか？", kana:"そのかばんはどこにありますか？"},
-  {en:"Where is the lamp?", jp:"そのランプはどこにありますか？", kana:"そのらんぷはどこにありますか？"},
-  {en:"Where is the milk?", jp:"その牛乳はどこにありますか？", kana:"そのぎゅうにゅうはどこにありますか？"},
-  {en:"Where is the cup?", jp:"そのコップはどこにありますか？", kana:"そのこっぷはどこにありますか？"},
-  {en:"Where is the pizza?", jp:"そのピザはどこにありますか？", kana:"そのぴざはどこにありますか？"},
-  {en:"Where is the laundry?", jp:"その洗濯物はどこにありますか？", kana:"そのせんたくものはどこにありますか？"},
-  {en:"Where is the TV?", jp:"そのテレビはどこにありますか？", kana:"そのてれびはどこにありますか？"},
+const QUESTIONS=[
+  {en:"Where is the cat?",jp:"そのねこはどこにいますか？",kana:"そのねこはどこにいますか？"},
+  {en:"Where is the pillow?",jp:"そのまくらはどこにありますか？",kana:"そのまくらはどこにありますか？"},
+  {en:"Where is the book?",jp:"その本はどこにありますか？",kana:"そのほんはどこにありますか？"},
+  {en:"Where is the bag?",jp:"そのかばんはどこにありますか？",kana:"そのかばんはどこにありますか？"},
+  {en:"Where is the lamp?",jp:"そのランプはどこにありますか？",kana:"そのらんぷはどこにありますか？"},
+  {en:"Where is the milk?",jp:"その牛乳はどこにありますか？",kana:"そのぎゅうにゅうはどこにありますか？"},
+  {en:"Where is the cup?",jp:"そのコップはどこにありますか？",kana:"そのこっぷはどこにありますか？"},
+  {en:"Where is the pizza?",jp:"そのピザはどこにありますか？",kana:"そのぴざはどこにありますか？"},
+  {en:"Where is the laundry?",jp:"その洗濯物はどこにありますか？",kana:"そのせんたくものはどこにありますか？"},
+  {en:"Where is the TV?",jp:"そのテレビはどこにありますか？",kana:"そのてれびはどこにありますか？"},
 ];
-let i=0,showBack=false;
+
+let data=CARDS,i=0,showBack=false;
 const card=document.getElementById('card');
 const frontFace=document.getElementById('frontFace');
 const backFace=document.getElementById('backFace');
@@ -136,7 +143,7 @@ const backTitle=document.getElementById('backTitle');
 const backKana=document.getElementById('backKana');
 
 function show(){
-  const c=CARDS[i];
+  const c=data[i];
   card.style.background=COLORS[i%COLORS.length];
   frontTitle.textContent=c.en;
   backTitle.textContent=c.jp;
@@ -149,9 +156,21 @@ function show(){
     frontFace.classList.replace("hidden","visible");
   }
 }
+
 document.getElementById('flipBtn').onclick=()=>{showBack=!showBack;show();};
-document.getElementById('nextBtn').onclick=()=>{i=(i+1)%CARDS.length;showBack=false;show();};
-document.getElementById('prevBtn').onclick=()=>{i=(i-1+CARDS.length)%CARDS.length;showBack=false;show();};
+document.getElementById('nextBtn').onclick=()=>{i=(i+1)%data.length;showBack=false;show();};
+document.getElementById('prevBtn').onclick=()=>{i=(i-1+data.length)%data.length;showBack=false;show();};
+
+document.getElementById('modeVocab').onclick=()=>{setMode(CARDS,'modeVocab');};
+document.getElementById('modeSent').onclick=()=>{setMode(SENTENCES,'modeSent');};
+document.getElementById('modeQues').onclick=()=>{setMode(QUESTIONS,'modeQues');};
+
+function setMode(arr,btnId){
+  data=arr;i=0;showBack=false;show();
+  document.querySelectorAll('.modes button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(btnId).classList.add('active');
+}
+
 show();
 </script>
 </body>
